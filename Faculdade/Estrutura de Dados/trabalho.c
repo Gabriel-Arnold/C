@@ -40,24 +40,26 @@ int dadosIniciais[20][20] = {
 
 void inicializarGrafo() {
     matriz = (int **)malloc(MAX_CIDADES * sizeof(int *));
-    for (int i = 0; i < MAX_CIDADES; i++) {
+    int i, j;
+    for (i = 0; i < MAX_CIDADES; i++) {
         matriz[i] = (int *)calloc(MAX_CIDADES, sizeof(int));
     }
 
-    for (int i = 0; i < 20; i++) {
+    for (i = 0; i < 20; i++) {
         cidades[i] = strdup(cidadesIniciais[i]);
-        for (int j = 0; j < 20; j++) {
+        for (j = 0; j < 20; j++) {
             matriz[i][j] = dadosIniciais[i][j];
         }
     }
 }
 
 void liberarGrafo() {
-    for (int i = 0; i < MAX_CIDADES; i++) {
+    int i;
+    for (i = 0; i < MAX_CIDADES; i++) {
         free(matriz[i]);
     }
     free(matriz);
-    for (int i = 0; i < totalCidades; i++) {
+    for (i = 0; i < totalCidades; i++) {
         free(cidades[i]);
     }
 }
@@ -68,7 +70,8 @@ void inserirCidade(char *nome) {
         return;
     }
     cidades[totalCidades] = strdup(nome);
-    for (int i = 0; i <= totalCidades; i++) {
+    int i;
+    for (i = 0; i <= totalCidades; i++) {
         int distancia;
         printf("Distância de %s até %s: ", nome, cidades[i]);
         scanf("%d", &distancia);
@@ -85,14 +88,15 @@ void removerCidade(int indice) {
     }
 
     free(cidades[indice]);
-    for (int i = indice; i < totalCidades - 1; i++) {
+    int i, j;
+    for (i = indice; i < totalCidades - 1; i++) {
         cidades[i] = cidades[i + 1];
-        for (int j = 0; j < totalCidades; j++) {
+        for (j = 0; j < totalCidades; j++) {
             matriz[i][j] = matriz[i + 1][j];
         }
     }
-    for (int j = indice; j < totalCidades - 1; j++) {
-        for (int i = 0; i < totalCidades; i++) {
+    for (j = indice; j < totalCidades - 1; j++) {
+        for (i = 0; i < totalCidades; i++) {
             matriz[i][j] = matriz[i][j + 1];
         }
     }
@@ -101,42 +105,45 @@ void removerCidade(int indice) {
 
 void imprimirMatriz() {
     printf("\nMatriz de Adjacência:\n     ");
-    for (int i = 0; i < totalCidades; i++)
+    int i, j;
+    for (i = 0; i < totalCidades; i++)
         printf("%2d ", i);
     printf("\n");
-    for (int i = 0; i < totalCidades; i++) {
+    for (i = 0; i < totalCidades; i++) {
         printf("%2d |", i);
-        for (int j = 0; j < totalCidades; j++)
+        for (j = 0; j < totalCidades; j++)
             printf("%2d ", matriz[i][j]);
         printf("\n");
     }
 }
 
 void listarCidades() {
-    for (int i = 0; i < totalCidades; i++) {
+    int i;
+    for (i = 0; i < totalCidades; i++) {
         printf("%2d - %s\n", i, cidades[i]);
     }
 }
 
 void menorRota(int origem, int destino) {
     int dist[MAX_CIDADES], visitado[MAX_CIDADES], anterior[MAX_CIDADES];
-    for (int i = 0; i < totalCidades; i++) {
+    int i, j, v, count;
+    for (i = 0; i < totalCidades; i++) {
         dist[i] = INT_MAX;
         visitado[i] = 0;
         anterior[i] = -1;
     }
     dist[origem] = 0;
 
-    for (int count = 0; count < totalCidades - 1; count++) {
+    for (count = 0; count < totalCidades - 1; count++) {
         int min = INT_MAX, u = -1;
-        for (int v = 0; v < totalCidades; v++)
+        for (v = 0; v < totalCidades; v++)
             if (!visitado[v] && dist[v] <= min)
                 min = dist[v], u = v;
 
         if (u == -1) break;
         visitado[u] = 1;
 
-        for (int v = 0; v < totalCidades; v++)
+        for (v = 0; v < totalCidades; v++)
             if (!visitado[v] && matriz[u][v] && dist[u] + matriz[u][v] < dist[v]) {
                 dist[v] = dist[u] + matriz[u][v];
                 anterior[v] = u;
@@ -144,10 +151,11 @@ void menorRota(int origem, int destino) {
     }
 
     printf("\nMenor rota de %s para %s: ", cidades[origem], cidades[destino]);
-    int caminho[MAX_CIDADES], i = 0, atual = destino;
+    int caminho[MAX_CIDADES], atual = destino;
+    i = 0;
     while (atual != -1)
         caminho[i++] = atual, atual = anterior[atual];
-    for (int j = i - 1; j >= 0; j--) {
+    for (j = i - 1; j >= 0; j--) {
         printf("%s", cidades[caminho[j]]);
         if (j > 0) printf(" -> ");
     }
@@ -157,7 +165,8 @@ void menorRota(int origem, int destino) {
 void DFSUtil(int v, int visitado[]) {
     visitado[v] = 1;
     printf("%s ", cidades[v]);
-    for (int i = 0; i < totalCidades; i++)
+    int i;
+    for (i = 0; i < totalCidades; i++)
         if (matriz[v][i] && !visitado[i])
             DFSUtil(i, visitado);
 }
@@ -183,7 +192,7 @@ void menu() {
         printf("0. Sair\n");
         printf("Escolha: ");
         scanf("%d", &opcao);
-        getchar(); // evitar quebra de linha
+        getchar();
 
         switch (opcao) {
             case 1:
