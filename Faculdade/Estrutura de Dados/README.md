@@ -4,8 +4,6 @@ Projeto desenvolvido para a disciplina **Estrutura de Dadso**, ministrada pelo p
 
 ---
 
----
-
 ## Alunos participantes
 
 - Gabriel Arnold dos Santos - RGM: 36121771
