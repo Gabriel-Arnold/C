@@ -73,7 +73,7 @@ void inserirCidade(char *nome) {
     int i;
     for (i = 0; i <= totalCidades; i++) {
         int distancia;
-        printf("Distância de %s até %s: ", nome, cidades[i]);
+        printf("Distancia de %s ate %s: ", nome, cidades[i]);
         scanf("%d", &distancia);
         matriz[totalCidades][i] = distancia;
         matriz[i][totalCidades] = distancia;
@@ -83,7 +83,7 @@ void inserirCidade(char *nome) {
 
 void removerCidade(int indice) {
     if (indice < 0 || indice >= totalCidades) {
-        printf("Índice inválido.\n");
+        printf("Indice invalido.\n");
         return;
     }
 
@@ -104,7 +104,7 @@ void removerCidade(int indice) {
 }
 
 void imprimirMatriz() {
-    printf("\nMatriz de Adjacência:\n     ");
+    printf("\nMatriz de Adjacencia:\n     ");
     int i, j;
     for (i = 0; i < totalCidades; i++)
         printf("%2d ", i);
@@ -159,7 +159,7 @@ void menorRota(int origem, int destino) {
         printf("%s", cidades[caminho[j]]);
         if (j > 0) printf(" -> ");
     }
-    printf("\nDistância total: %d km\n", dist[destino]);
+    printf("\nDistancia total: %d km\n", dist[destino]);
 }
 
 void DFSUtil(int v, int visitado[]) {
@@ -173,7 +173,7 @@ void DFSUtil(int v, int visitado[]) {
 
 void buscaEmProfundidade(int origem) {
     int visitado[MAX_CIDADES] = {0};
-    printf("DFS a partir de %s: ", cidades[origem]);
+    printf("Busca a partir de %s: ", cidades[origem]);
     DFSUtil(origem, visitado);
     printf("\n");
 }
@@ -203,7 +203,7 @@ void menu() {
                 break;
             case 2:
                 listarCidades();
-                printf("Índice da cidade a remover: ");
+                printf("Indice da cidade a remover: ");
                 scanf("%d", &indice);
                 removerCidade(indice);
                 break;
@@ -229,7 +229,7 @@ void menu() {
                 printf("Encerrando...\n");
                 break;
             default:
-                printf("Opção inválida!\n");
+                printf("Opcao invalida!\n");
         }
     } while (opcao != 0);
 }
