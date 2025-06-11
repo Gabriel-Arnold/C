@@ -8,4 +8,4 @@ Projeto desenvolvido para a disciplina **Estrutura de Dadso**, ministrada pelo p
 
 - Gabriel Arnold dos Santos - RGM: 36121771
 - Pedro - RGM: 35604867
-- 
+- Weverton Viera Ribeiro - RGM: 39515923
